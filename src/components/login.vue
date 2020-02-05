@@ -4,7 +4,9 @@
     <p>
       请输入用户名和密码登陆
     </p>
-    <form action="http://ubuntu:8080/getuserlist" method="get"></form>
+    <input type="text" placeholder="用户名"/>
+    <input type="text" placeholder="密码"/>
+    <button @click="login">登录</button>
   </div>
 </template>
 
@@ -13,7 +15,22 @@ export default {
   name: "Login",
   props: {
     msg: String
+  },
+  methods: {
+    
+    login () {
+      this.axios({
+        method: 'get',
+        url: '/apigetuserlist'
+      }).then(resp => {
+        console.log(resp.data);
+      }).catch(error => {
+        alert('获取用户列表失败');
+        console.log(error);
+      });
+    }
   }
+
 };
 </script>
 
