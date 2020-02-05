@@ -1,4 +1,4 @@
-# vue-demo
+# fsdemo-frontend
 
 ## Project setup
 ```
