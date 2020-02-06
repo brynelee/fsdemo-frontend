@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
+import store from './store/index'
 
 // 引入axios
 import axios from 'axios'
@@ -24,6 +25,7 @@ Vue.prototype.baseURL = "http://ubuntu:8080";
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')
