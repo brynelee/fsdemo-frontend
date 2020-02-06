@@ -9,11 +9,11 @@ module.exports = {
     runtimeCompiler: false, // babel-loader默认会跳过`node_modules`依赖. // 通过这个选项可以显示转译一个依赖
     transpileDependencies: [
         /* string or regex */
-    ], 
+    ],
     // 是否为生产环境构建生成sourceMap?
     productionSourceMap: false, // 调整内部的webpack配置. // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    chainWebpack: () => {},
-    configureWebpack: () => {}, // CSS 相关选项
+    chainWebpack: () => { },
+    configureWebpack: () => { }, // CSS 相关选项
     css: {
         // 将组件内部的css提取到一个单独的css文件（只用在生产环境）
         // 也可以是传递给 extract-text-webpack-plugin 的选项对象
@@ -36,19 +36,18 @@ module.exports = {
         //proxy: null // string | Object
         proxy: {
             '/apigetuserlist': {
-              target: 'http://ubuntu:8080/getuserlist',
-              changeOrigin: true,
-              ws: true,
-              pathRewrite: {
-                '^/apigetuserlist': ''
-              }
+                target: 'http://ubuntu:8081/getuserlist',
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                    '^/apigetuserlist': ''
+                }
             }
         }
         // before: app => {}
-    }, 
+    },
     // 第三方插件配置
     pluginOptions: {
         // ...
     }
 };
-  
