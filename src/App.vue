@@ -1,19 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <login msg="欢迎来到 fsdemo" />
+    <div>test1</div>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Login from './components/login.vue'
 
 export default {
   name: 'app',
-  components: {
-    Login
-  }
 }
+
 </script>
 
 <style scoped>
