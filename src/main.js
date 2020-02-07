@@ -20,7 +20,7 @@ Vue.use(ElementUI);
 
 // 后端的每个请求地址公共的部分
 
-Vue.prototype.baseURL = "http://ubuntu:8080";
+Vue.prototype.baseURL = "http://localhost:8081";
 
 Vue.config.productionTip = false
 

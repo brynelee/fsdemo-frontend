@@ -1,60 +1,78 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-
-    state: {//要设置的全局访问的state对象
-        showFooter: true,
-        changableNum: 0x0,
-        messageTo: "Welcome to Beijing"
-        //要设置的初始属性值
+    state: {
+        status: '',
+        token: localStorage.getItem('token') || '',
+        user: {}
     },
-
-    getters: {   //实时监听state值的变化(最新状态)
-        isShow: state => {  //方法名随意,主要是来承载变化的showFooter的值
-            return state.showFooter
-        },
-        getChangedNum(state) {  //方法名随意,主要是用来承载变化的changableNum的值
-            return parseInt(state.changableNum)
-        },
-        getMessageTo(state) {
-            return state.messageTo
-        }
-    },
-
     mutations: {
-        show: state => {   //自定义改变state初始值的方法，这里面的参数除了state之外还可以再传额外的参数(变量或对象);
-            state.showFooter = true;
+        auth_request(state) {
+            state.status = 'loading';
         },
-        hide: state => {  //同上
-            state.showFooter = false;
+        auth_success(state, token, user) {
+            state.status = 'success';
+            state.token = token;
+            state.user = user;
         },
-        newNum(state, sum) { //同上，这里面的参数除了state之外还传了需要增加的值sum
-            state.changableNum += sum;
+        auth_error(state) {
+            state.status = 'error';
         },
-        newMessage(state) {
-            state.messageTo = "Welcome to China"
+        logout(state) {
+            state.status = '';
+            state.token = '';
+        },
+    },
+    actions: {
+        //{commit}是省略context的简写方式
+        Login({ commit }, user) {
+            return new Promise((resolve, reject) => {
+                commit('auth_request')
+                // 向后端发送请求，验证用户名密码是否正确，请求成功接收后端返回的token值，利用commit修改store的state属性，并将token存放在localStorage中
+                axios.post(`$baseURL/login`, user)
+                    .then(resp => {
+                        const token = resp.data.token
+                        const user = resp.data.user
+                        localStorage.setItem('token', token)
+                        // 每次请求接口时，需要在headers添加对应的Token验证
+                        axios.defaults.headers.common['Authorization'] = token
+                        // 更新token
+                        commit('auth_success', token, user)
+                        resolve(resp)
+                    })
+                    .catch(err => {
+                        commit('auth_error')
+                        localStorage.removeItem('token')
+                        localStorage.removeItem('user_id')
+                        reject(err)
+                    })
+            })
+        },
+        LogOut({ commit }) {
+            return new Promise((resolve, reject) => {
+                axios.get('/apilogout')
+                    .then(response => {
+                        commit('logout')
+                        localStorage.removeItem('token')
+                        // 移除之前在axios头部设置的token,现在将无法执行需要token的事务
+                        delete axios.defaults.headers.common['Authorization'];
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        reject(error)
+                    })
+            })
         }
     },
-
-    actions: {
-
-        hideFooter: context => {  //自定义触发mutations里函数的方法，context与store 实例具有相同方法和属性
-            context.commit('hide');
-        },
-        showFooter: context => {  //同上注释
-            context.commit('show');
-        },
-        setNewNum(context, num) {   //同上注释，num为要变化的形参
-            context.commit('newNum', num)
-        },
-        setNewMessage: context => {
-            context.commit('newMessage')
-        }
+    getters: {
+        // !!将state.token强制转换为布尔值，若state.token存在且不为空(已登录)则返回true，反之返回false
+        isLoggedIn: state => !!state.token,
+        authStatus: state => state.status
     }
-
 });
 
 export default store;

@@ -34,6 +34,7 @@ module.exports = {
         https: false,
         hotOnly: false, // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
         //proxy: null // string | Object
+        /*
         proxy: {
             '/apigetuserlist': {
                 target: 'http://ubuntu:8081/getuserlist',
@@ -43,11 +44,12 @@ module.exports = {
                     '^/apigetuserlist': ''
                 }
             }
+            // before: app => {}
+        },
+        */
+        // 第三方插件配置
+        pluginOptions: {
+            // ...
         }
-        // before: app => {}
-    },
-    // 第三方插件配置
-    pluginOptions: {
-        // ...
     }
-};
+}
