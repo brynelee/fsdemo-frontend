@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Hello {{this.$store.state.user}}</h1>
+    <h1>Welcome to User Home, {{$store.getters.user}}</h1>
+    <h1>state.status {{$store.state.status}}</h1>
+    <h1>state.token {{$store.state.token}}</h1>
     <router-link to="/login">
       <button>Back to login</button>
     </router-link>

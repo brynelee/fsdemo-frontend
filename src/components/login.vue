@@ -1,21 +1,20 @@
 <template>
   <div class="login">
 
-    <h1>{{ msg }}</h1>
+    <h1>{{ messageTip }}</h1>
 
-    <p>
-      请输入用户名和密码登陆
-    </p>
-
-    <el-form ref="loginForm" :model="loginForm" label-width="70px">
-      <el-form-item label="用户名" prop="un">
-        <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
+    <el-form ref="loginForm" :model="loginFormData" label-width="70px" alignment="center">
+      <el-form-item label="用户名">
+        <el-input v-model="loginFormData.username" placeholder='请输入用户名'></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="pw">
-        <el-input type="password" v-model="loginForm.password" @keyup.enter.native="login" placeholder="请输入密码"></el-input>
+      <el-form-item label="密码">
+        <el-input type="password" v-model="loginFormData.password" @keyup.enter.native="login" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" class="button" @click="login">登录</el-button>
+          <router-link to="/registration">
+              <button>注册</button>
+          </router-link>
       </el-form-item>
     </el-form>
 
@@ -27,35 +26,39 @@
 
 export default {
   name: "Login",
+
   props: {
     msg: String
-
   },
+
   data() {
     return {
-      loginForm: {
-        username: String,
-        password: String
-      }
+        loginFormData: {
+            username: String,
+            password: String
+        },
+        messageTip: '请输入用户名和密码登陆'
     }
-  },
-
-  computed: {
-
   },
 
   methods: {
     login() {
       let params = {
-        'username': this.loginForm.username,
-        'password': this.loginForm.password
+        'username': this.loginFormData.username,
+        'password': this.loginFormData.password
       };
       this.$store.dispatch('Login', params)
         .then(() => {
-          this.$router.push({ path: '/userhome' });
+            console.log('Login: login page dispatch returned.');
+            if (this.$store.getters.loginStatus == 'success') {
+                this.$router.push({ path: '/userhome' });
+            }else{
+                this.messageTip = this.$store.getters.loginStatus;
+            }
+
         })
         .catch((error) => {
-          console.log(error.response);
+            console.log(error.response);
         });
     }
   }
@@ -66,6 +69,9 @@ export default {
 <style scoped>
 h3 {
   margin: 40px 0 0;
+}
+el-form {
+  vertical-align: middle;
 }
 ul {
   list-style-type: none;

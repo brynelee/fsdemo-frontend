@@ -6,14 +6,19 @@
     </div>
     <div>
       <el-table :data="tableData" border style="width: 100%" size="small" align="center">
-        <el-table-column align="center" prop="user_id" label="用户ID" width="100">
+        <el-table-column align="center" prop="tableData.id" label="用户ID" width="100">
         </el-table-column>
         <el-table-column align="center" prop="username" label="用户名" width="100">
         </el-table-column>
         <el-table-column align="center" prop="userpassword" label="用户密码" width="100">
         </el-table-column>
+        <el-table-column align="center" prop="token" label="token" width="100">
+        </el-table-column>
       </el-table>
     </div>
+    <router-link to="/login">
+      <button>Back to login</button>
+    </router-link>
   </div>
 </template>
 
@@ -29,7 +34,8 @@ export default {
     getuserlist() {
       this.axios({
         method: 'get',
-        url: '/apigetuserlist'
+        //url: `${this.baseURL}/getuserlist`
+        url: '/api/getuserlist'
       }).then(resp => {
         console.log(resp.data);
         this.tableData = resp.data;
