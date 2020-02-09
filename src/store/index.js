@@ -51,7 +51,8 @@ const store = new Vuex.Store({
                     console.log("Login axios request got response: ", resp);
                     let errorMessage;
                     let user = {};
-                    //todo: based on error code to process login logic
+
+                    //based on error code to process login logic
                     let error_code = parseInt(resp.data.errorCode);
 
                     switch(error_code){
@@ -69,13 +70,13 @@ const store = new Vuex.Store({
                             console.log("Store: the state.user is ", this.state.user);
                             break;
 
-                        case 2: //todo: password is incorrect, need to tell the user to input again
+                        case 2: //password is incorrect, need to tell the user to input again
                             errorMessage = resp.data.errorMessage;
                             console.log(errorMessage);
                             commit('auth_passwordincorrect');
                             break;
 
-                        case 3: //todo: user does not exist, need to tell the user to input again or register
+                        case 3: //user does not exist, need to tell the user to input again or register
                             errorMessage = resp.data.errorMessage;
                             console.log(errorMessage);
                             commit('auth_usernotexist');

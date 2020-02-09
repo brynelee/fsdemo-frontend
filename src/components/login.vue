@@ -5,7 +5,7 @@
 
         <el-form ref="loginForm" :model="loginFormData" label-width="70px" alignment="center">
             <el-form-item label="用户名">
-                <el-input v-model="loginFormData.username" placeholder='请输入用户名'></el-input>
+                <el-input v-model="loginFormData.username" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item label="密码">
                 <el-input type="password" v-model="loginFormData.password" @keyup.enter.native="login"
@@ -23,7 +23,6 @@
     </div>
 </template>
 
-
 <script>
 
 export default {
@@ -36,8 +35,8 @@ export default {
     data() {
         return {
             loginFormData: {
-                username: String,
-                password: String
+                username: '',
+                password: ''
             },
             messageTip: '请输入用户名和密码登陆'
         }
