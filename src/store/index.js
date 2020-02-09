@@ -42,11 +42,11 @@ const store = new Vuex.Store({
                 commit('auth_request');
                 // 向后端发送请求，验证用户名密码是否正确，请求成功接收后端返回的token值，利用commit修改store的state属性，并将token存放在localStorage中
                 // axios post params是url参数，data是payload内容，二者有区别。
-                //axios.post('/api/login', {username: 'dahai', password: '666666'})
+                //axios.post('/usercenter/login', {username: 'dahai', password: '666666'})
                 axios({
                     method: 'post',
                     //url: `${this.baseURL}/getuserlist`
-                    url: '/api/login',
+                    url: '/usercenter/login',
                     params: user
                 }).then(resp => {
                     console.log("Login axios request got response: ", resp);
@@ -99,7 +99,7 @@ const store = new Vuex.Store({
                 axios({
                     method: 'post',
                     //url: `${this.baseURL}/getuserlist`
-                    url: '/api/logout',
+                    url: '/usercenter/logout',
                     params: logoutInfo
                 }).then(response => {
                     console.log("Store: User ", logoutInfo.username, "Logout got response from the server with error code ", response.data.errorCode);
