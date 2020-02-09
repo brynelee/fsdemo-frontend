@@ -20,10 +20,10 @@ const store = new Vuex.Store({
             state.token = user.userToken;
             state.user = user;
         },
-        auth_usernotexist(state){
+        auth_usernotexist(state) {
             state.status = 'user_not_exist';
         },
-        auth_passwordincorrect(state){
+        auth_passwordincorrect(state) {
             state.status = 'password_incorrect';
         },
         auth_error(state) {
@@ -32,21 +32,22 @@ const store = new Vuex.Store({
         logout(state) {
             state.status = '';
             state.token = '';
+            state.user = {};
         }
     },
     actions: {
         //{commit}是省略context的简写方式
-        Login({ commit }, user) {
+        Login({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request');
                 // 向后端发送请求，验证用户名密码是否正确，请求成功接收后端返回的token值，利用commit修改store的state属性，并将token存放在localStorage中
                 // axios post params是url参数，data是payload内容，二者有区别。
                 //axios.post('/api/login', {username: 'dahai', password: '666666'})
                 axios({
-                        method: 'post',
-                        //url: `${this.baseURL}/getuserlist`
-                        url: '/api/login',
-                        params: user
+                    method: 'post',
+                    //url: `${this.baseURL}/getuserlist`
+                    url: '/api/login',
+                    params: user
                 }).then(resp => {
                     console.log("Login axios request got response: ", resp);
                     let errorMessage;
@@ -55,7 +56,7 @@ const store = new Vuex.Store({
                     //based on error code to process login logic
                     let error_code = parseInt(resp.data.errorCode);
 
-                    switch(error_code){
+                    switch (error_code) {
                         case 1: //login success, proceed with token proccesing
                         case 4: //token expired, proceed with token proccessing (save the new token too)
                             console.log("Store: login responded successfully, proceed to store the information.");
@@ -92,16 +93,22 @@ const store = new Vuex.Store({
                 })
             })
         },
-        LogOut({ commit }) {
+        Logout({commit}, logoutInfo) {
+            console.log("Store: Logout will be sent to the server for user: ", logoutInfo.username);
             return new Promise((resolve, reject) => {
-                axios.get('/api/logout')
-                    .then(response => {
-                        commit('logout');
-                        localStorage.removeItem('token');
-                        // 移除之前在axios头部设置的token,现在将无法执行需要token的事务
-                        delete axios.defaults.headers.common['Authorization'];
-                        resolve(response);
-                    })
+                axios({
+                    method: 'post',
+                    //url: `${this.baseURL}/getuserlist`
+                    url: '/api/logout',
+                    params: logoutInfo
+                }).then(response => {
+                    console.log("Store: User ", logoutInfo.username, "Logout got response from the server with error code ", response.data.errorCode);
+                    commit('logout');
+                    localStorage.removeItem('token');
+                    // 移除之前在axios头部设置的token,现在将无法执行需要token的事务
+                    delete axios.defaults.headers.common['Authorization'];
+                    resolve(response);
+                })
                     .catch(error => {
                         reject(error);
                     })

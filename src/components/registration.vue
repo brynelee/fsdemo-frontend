@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="registration">
         <h1>Registration Page</h1>
 
         <p>
@@ -11,12 +11,15 @@
                 <el-input v-model="registerFormData.username" placeholder='请输入用户名'></el-input>
             </el-form-item>
             <el-form-item label="密码">
-                <el-input type="password" v-model="registerFormData.password" @keyup.enter.native="register" placeholder="请输入密码"></el-input>
+                <el-input type="password" v-model="registerFormData.password1" @keyup.enter.native="register" placeholder="请输入密码"></el-input>
+            </el-form-item>
+            <el-form-item label="输入密码">
+                <el-input type="password" v-model="registerFormData.password2" @keyup.enter.native="register" placeholder="请输入密码"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" class="button" @click="register">注册</el-button>
+                <el-button type="primary" class="button" @click="register" style="width: 120px; margin-right: 50px">注册</el-button>
                 <router-link to="/">
-                    <button>回到登陆界面</button>
+                    <el-button type="primary" class="button" style="width: 120px; margin-right: auto">回到登录界面</el-button>
                 </router-link>
             </el-form-item>
         </el-form>
@@ -30,8 +33,9 @@
         data() {
           return {
               registerFormData: {
-                  username: String,
-                  password: String
+                  username: '',
+                  password1: '',
+                  password2: ''
               }
           }
         },
@@ -45,5 +49,29 @@
 </script>
 
 <style scoped>
+    h3 {
+        margin: 40px 0 0;
+    }
 
+    .registration {
+        alignment: center;
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    a {
+        color: #42b983;
+    }
 </style>

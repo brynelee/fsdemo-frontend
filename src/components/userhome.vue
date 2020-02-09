@@ -1,16 +1,18 @@
 <template>
   <div>
     <h1>Welcome to User Home, {{ username }}</h1>
-    <h1>state.status {{ authStatus }}</h1>
-    <h1>state.token {{ token }}</h1>
-    <button @click="showInfo(user)">show user</button>
-    <router-link to="/login">
-      <button>Back to login</button>
-    </router-link>
+    <h3>state.status {{ authStatus }}</h3>
+    <h4>state.token {{ token }}</h4>
+    <button @click="logout">退出登录</button>
   </div>
 </template>
 
 <script>
+
+  //todo: add product list
+  //todo: add product order function
+  //todo: add asset list
+  //todo: add asset sell function
 
 import { mapState, mapGetters } from 'vuex'
 
@@ -30,8 +32,19 @@ export default {
 
   methods: {
 
-    showInfo: function(message){
-      alert(message);
+    logout() {
+        let logoutInfo = {
+            username: this.username,
+            token: this.token
+        };
+      this.$store.dispatch('Logout',logoutInfo)
+          .then(() => {
+              console.log('UserHome: logout dispatch and will back to the default page.');
+              this.$router.push({path: '/'});
+          })
+          .catch((error) => {
+              console.log("UserHome: logout dispatch got error: ", error.response);
+          });
     }
 
   }
