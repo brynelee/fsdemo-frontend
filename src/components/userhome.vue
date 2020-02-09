@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1>Welcome to User Home, {{$store.getters.user}}</h1>
-    <h1>state.status {{$store.state.status}}</h1>
-    <h1>state.token {{$store.state.token}}</h1>
+    <h1>Welcome to User Home, {{ username }}</h1>
+    <h1>state.status {{ authStatus }}</h1>
+    <h1>state.token {{ token }}</h1>
+    <button @click="showInfo(user)">show user</button>
     <router-link to="/login">
       <button>Back to login</button>
     </router-link>
@@ -10,8 +11,30 @@
 </template>
 
 <script>
+
+import { mapState, mapGetters } from 'vuex'
+
 export default {
-  name: "UserHome"
+
+  name: "UserHome",
+
+  computed: {
+    ...mapState([
+      'token'
+    ]),
+    ...mapGetters([
+      'authStatus',
+      'username'
+    ])
+  },
+
+  methods: {
+
+    showInfo: function(message){
+      alert(message);
+    }
+
+  }
 
 }
 </script>

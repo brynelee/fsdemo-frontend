@@ -7,16 +7,17 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         status: '',
-        token: localStorage.getItem('token') || '',
-        user: ''
+        //token: localStorage.getItem('token') || '',
+        token: '',
+        user: {}
     },
     mutations: {
         auth_request(state) {
             state.status = 'loading';
         },
-        auth_success(state, token, user) {
+        auth_success(state, user) {
             state.status = 'success';
-            state.token = token;
+            state.token = user.userToken;
             state.user = user;
         },
         auth_usernotexist(state){
@@ -39,7 +40,7 @@ const store = new Vuex.Store({
             return new Promise((resolve, reject) => {
                 commit('auth_request');
                 // 向后端发送请求，验证用户名密码是否正确，请求成功接收后端返回的token值，利用commit修改store的state属性，并将token存放在localStorage中
-                //axios.post('/api/login', user)
+                // axios post params是url参数，data是payload内容，二者有区别。
                 //axios.post('/api/login', {username: 'dahai', password: '666666'})
                 axios({
                         method: 'post',
@@ -48,7 +49,8 @@ const store = new Vuex.Store({
                         params: user
                 }).then(resp => {
                     console.log("Login axios request got response: ", resp);
-                    let errorMessage, userToken, username;
+                    let errorMessage;
+                    let user = {};
                     //todo: based on error code to process login logic
                     let error_code = parseInt(resp.data.errorCode);
 
@@ -56,14 +58,15 @@ const store = new Vuex.Store({
                         case 1: //login success, proceed with token proccesing
                         case 4: //token expired, proceed with token proccessing (save the new token too)
                             console.log("Store: login responded successfully, proceed to store the information.");
-                            userToken = resp.data.userToken;
-                            username = resp.data.username;
-                            localStorage.setItem('token', userToken);
+                            user.userToken = resp.data.userToken;
+                            user.username = resp.data.username;
+                            localStorage.setItem('token', user.userToken);
                             // 每次请求接口时，需要在headers添加对应的Token验证
-                            axios.defaults.headers.common['Authorization'] = userToken;
+                            axios.defaults.headers.common['Authorization'] = user.userToken;
                             // 更新token
-                            commit('auth_success', userToken, username);
-                            console.log("Store: the username is ", username);
+                            commit('auth_success', user);
+                            console.log("Store: the response username is ", user.username);
+                            console.log("Store: the state.user is ", this.state.user);
                             break;
 
                         case 2: //todo: password is incorrect, need to tell the user to input again
@@ -105,11 +108,11 @@ const store = new Vuex.Store({
         }
     },
     getters: {
+        // getters主要用来生成一些派生属性。
         // !!将state.token强制转换为布尔值，若state.token存在且不为空(已登录)则返回true，反之返回false
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
-        loginStatus: state => state.status,
-        user: state => state.user
+        username: state => state.user.username
     }
 });
 

@@ -24,21 +24,27 @@ Vue.prototype.baseURL = "http://localhost:8081";
 
 Vue.config.productionTip = false;
 
+
 //添加路由控制
 router.beforeEach((to, from, next) => {
   // 检测路由配置中是否有requiresAuth这个meta属性
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log("main.js: router check - requiresAuth - true.");
     // 判断是否已登录
     if (store.getters.isLoggedIn) {
+      console.log("main.js: router check - isLoggedIn - true.");
       next();
       return;
     }
     // 未登录则跳转到登录界面
+    console.log("main.js: router check - isLoggedIn - false.");
     next('/login');
   } else {
+    console.log("main.js: router check - requiresAuth - false.");
     next()
   }
 });
+
 
 new Vue({
   store,
