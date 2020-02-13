@@ -7,7 +7,7 @@ module.exports = {
 
       proxy: {
           '/usercenter': {
-              target: 'http://ubuntu:8081',
+              target: 'http://localhost:8081',
               changeOrigin: true,
               ws: true
               /*pathRewrite: {
@@ -16,7 +16,7 @@ module.exports = {
           },
 
           '/tas': {
-              target: 'http://ubuntu:8082',
+              target: 'http://localhost:8082',
               changeOrigin: true,
               ws: true
               /*pathRewrite: {

@@ -6,19 +6,20 @@
     </div>
     <div>
       <el-table :data="tableData" border style="width: 100%" size="small" align="center">
-        <el-table-column align="center" prop="tableData.id" label="用户ID" width="100">
+        <el-table-column align="center" prop="userId" label="用户ID" width="100">
         </el-table-column>
         <el-table-column align="center" prop="username" label="用户名" width="100">
         </el-table-column>
         <el-table-column align="center" prop="userpassword" label="用户密码" width="100">
         </el-table-column>
-        <el-table-column align="center" prop="token" label="token" width="100">
+        <el-table-column align="center" prop="userToken" label="token" width="500">
         </el-table-column>
       </el-table>
     </div>
 <!--    <router-link to="/login">
       <button>Back to login</button>
-    </router-link>-->
+    </router-link>
+-->
     <router-link to="/userhome">
       <el-button type="primary" class="button" style="width: 120px">回到用户主界面</el-button>
     </router-link>
