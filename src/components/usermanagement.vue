@@ -16,8 +16,11 @@
         </el-table-column>
       </el-table>
     </div>
-    <router-link to="/login">
+<!--    <router-link to="/login">
       <button>Back to login</button>
+    </router-link>-->
+    <router-link to="/userhome">
+      <el-button type="primary" class="button" style="width: 120px">回到用户主界面</el-button>
     </router-link>
   </div>
 </template>
@@ -35,7 +38,7 @@ export default {
       this.axios({
         method: 'get',
         //url: `${this.baseURL}/getuserlist`
-        url: '/api/getuserlist'
+        url: '/usercenter/getuserlist'
       }).then(resp => {
         console.log(resp.data);
         this.tableData = resp.data;

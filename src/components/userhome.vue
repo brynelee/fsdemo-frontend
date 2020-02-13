@@ -4,6 +4,9 @@
     <h3>state.status {{ authStatus }}</h3>
     <h4>state.token {{ token }}</h4>
     <button @click="logout">退出登录</button>
+    <router-link to="/usermanagement">
+      <el-button type="primary" class="button" style="width: 120px">管理用户界面</el-button>
+    </router-link>
   </div>
 </template>
 
