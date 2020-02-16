@@ -73,7 +73,7 @@ export default {
           console.log("userhome: getProductList called ...");
           this.axios({
               method: 'get',
-              url: '/tas/getproductlist'
+              url: '/tas/products'
           }).then(resp => {
               console.log(resp.data);
               this.productData = resp.data;
