@@ -24,7 +24,7 @@
               </el-table-column>
               <el-table-column align="center" prop="unit_price" label="产品份额单价" width="100">
               </el-table-column>
-              <el-table-column align="center" prop="dynamicPrice" label="是否动态价格" width="100">
+              <el-table-column align="center" prop="dynamicPrice" :formatter="formatBoolean" label="是否动态价格" width="100">
               </el-table-column>
               <el-table-column align="center" prop="description" label="产品说明" width="100">
               </el-table-column>
@@ -97,7 +97,18 @@ export default {
           .catch((error) => {
               console.log("UserHome: logout dispatch got error: ", error.response);
           });
-    }
+    },
+
+      /*布尔值格式化：cellValue为后台返回的值*/
+      formatBoolean: function (row, column, cellValue) {
+          var ret = ''  //你想在页面展示的值
+          if (cellValue) {
+              ret = "是"  //根据自己的需求设定
+          } else {
+              ret = "否"
+          }
+          return ret;
+      }
 
   }
 
