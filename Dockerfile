@@ -11,6 +11,7 @@ RUN apt-get install bash -y
 RUN apt-get install netcat -y
 RUN apt-get install vim -y
 RUN apt-get install iputils-ping -y
+RUN apt-get install curl -y
 RUN rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*
 COPY nginx.conf /etc/nginx
 RUN mkdir -p /etc/nginx/logs 
