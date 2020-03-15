@@ -22,6 +22,15 @@ module.exports = {
               /*pathRewrite: {
                   '^/usercenter': ''
               }*/
+          },
+
+          '/oauth': {
+              target: 'http://localhost:8084',
+              changeOrigin: true,
+              ws: true
+              /*pathRewrite: {
+                  '^/usercenter': ''
+              }*/
           }
 
           /*'/api': {
