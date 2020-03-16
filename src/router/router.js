@@ -4,6 +4,7 @@ import Login from '@/components/login';
 import Usermanagement from '@/components/usermanagement';
 import UserHome from '@/components/userhome';
 import Registration from '@/components/registration';
+import Key from '@/components/key';
 
 Vue.use(VueRouter);
 
@@ -11,7 +12,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/Login'
         },
         {
             path: '/login',
@@ -28,6 +29,11 @@ const router = new VueRouter({
             name: 'userhome',
             component: UserHome,
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/key',
+            name: 'key',
+            component: Key,
         },
         {
             path: '/usermanagement',

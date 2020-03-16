@@ -17,9 +17,11 @@
                     <el-button type="primary" class="button" style="width: 120px; margin-right: 50px">注册</el-button>
                 </router-link>
                 <el-button type="primary" class="button" @click="login" style="width: 120px">登录</el-button>
-                <el-button type="primary" class="button" @click="loginAuthsrv" style="width: 120px">三方登录</el-button>
-                <el-button type="primary" class="button" @click="showToken" style="width: 120px">Token</el-button>
             </el-form-item>
+            </div>
+            <div>
+                <button class="button" @click="loginAuthsrv" style="width: 120px">三方登录</button>
+                <button class="button" @click="showToken" style="width: 120px">Token</button>
             </div>
         </el-form>
 
@@ -74,8 +76,8 @@ export default {
         },
 
         loginAuthsrv(){
-            //window.location.href="http://fsdemo-authsrv:8084/oauth/authorize?client_id=fsdemo-frontend&redirect_uri=http://fsdemo-usercenter:8081/usercenter/auth&response_type=code&scope=all&state=fsdemo-frontend";
-            window.open("http://fsdemo-authsrv:8084/oauth/authorize?client_id=fsdemo-frontend&redirect_uri=http://fsdemo-usercenter:8081/usercenter/auth&response_type=code&scope=all&state=fsdemo-frontend");
+            window.location.href="http://fsdemo-authsrv:8084/oauth/authorize?client_id=fsdemo-frontend&redirect_uri=http://fsdemo-usercenter:8081/usercenter/auth&response_type=code&scope=all&state=fsdemo-frontend";
+            //window.open("http://fsdemo-authsrv:8084/oauth/authorize?client_id=fsdemo-frontend&redirect_uri=http://fsdemo-usercenter:8081/usercenter/auth&response_type=code&scope=all&state=fsdemo-frontend");
         },
         showToken(){
             let tokenGot = localStorage.getItem("token");
