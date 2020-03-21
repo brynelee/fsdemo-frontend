@@ -3,7 +3,8 @@ module.exports = {
     //crossorigin: 'anonymous'
     devServer: {
 
-        //proxy: 'http://ubuntu:8081'
+      disableHostCheck: true,
+        //proxy: 'http://ubuntu:8081',
 
       proxy: {
           '/usercenter': {
