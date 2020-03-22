@@ -10,6 +10,8 @@
 
     import axios from 'axios';
 
+    import {AUTHORIZATION_TOKEN} from '../store/constants';
+
     export default {
         name: 'Key',
         data() {
@@ -22,11 +24,12 @@
             let user = {};
 
             user.userToken = this.$route.query.token;
-            user.username = "oauth";
+            //user.username = "oauth";
+            user.username = this.$route.query.username;
             localStorage.setItem("token", user.userToken);
             console.log("Got token by oauth: ", user.userToken);
             // 每次请求接口时，需要在headers添加对应的Token验证
-            axios.defaults.headers.common['Authorization'] = user.userToken;
+            axios.defaults.headers.common[AUTHORIZATION_TOKEN] = user.userToken;
             // 更新token
             this.$store.commit('auth_success', user);
 

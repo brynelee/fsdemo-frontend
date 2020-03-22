@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
 
+import { AUTHORIZATION_TOKEN } from './constants';
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -64,7 +66,7 @@ const store = new Vuex.Store({
                             user.username = resp.data.username;
                             localStorage.setItem('token', user.userToken);
                             // 每次请求接口时，需要在headers添加对应的Token验证
-                            axios.defaults.headers.common['AuthorizationToken'] = user.userToken;
+                            axios.defaults.headers.common[AUTHORIZATION_TOKEN] = user.userToken;
                             // 更新token
                             commit('auth_success', user);
                             console.log("Store: the response username is ", user.username);
