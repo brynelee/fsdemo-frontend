@@ -32,6 +32,15 @@ module.exports = {
               /*pathRewrite: {
                   '^/usercenter': ''
               }*/
+          },
+
+          '/emplyservice': {
+              target: 'http://localhost:8086',
+              changeOrigin: true,
+              ws: true
+              /*pathRewrite: {
+                  '^/usercenter': ''
+              }*/
           }
 
           /*'/api': {

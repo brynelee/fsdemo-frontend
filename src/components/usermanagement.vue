@@ -1,6 +1,6 @@
 <template>
   <div class="fromlist">
-    <p>用户信息列表</p>
+    <p>用户信息列表(by fsdemo-usercenter in Java)</p>
     <div class="filter-container">
       <el-button type="primary" size="small" @click="getuserlist">获取用户列表</el-button>
     </div>
@@ -16,6 +16,28 @@
         </el-table-column>
       </el-table>
     </div>
+    <hr/>
+    <p>员工信息列表(by emplyservice in Rust</p>
+    <div class="filter-container">
+      <el-button type="primary" size="small" @click="getEmployeeList">获取员工列表</el-button>
+    </div>
+    <div>
+      <el-table :data="employeeTableData" border style="width: 100%" size="small" align="center">
+        <el-table-column align="center" prop="id" label="用户ID" width="100">
+        </el-table-column>
+        <el-table-column align="center" prop="first_name" label="名" width="100">
+        </el-table-column>
+        <el-table-column align="center" prop="last_name" label="姓" width="100">
+        </el-table-column>
+        <el-table-column align="center" prop="department" label="部门" width="200">
+        </el-table-column>
+        <el-table-column align="center" prop="salary" label="月薪" width="150">
+        </el-table-column>
+        <el-table-column align="center" prop="age" label="年龄" width="100">
+        </el-table-column>
+      </el-table>
+    </div>
+    <hr/>
 <!--    <router-link to="/login">
       <button>Back to login</button>
     </router-link>
@@ -31,7 +53,8 @@ export default {
   name: "Usermanagement",
   data() {
     return {
-      tableData: []
+      tableData: [],
+      employeeTableData: [],
     }
   },
   methods: {
@@ -45,6 +68,19 @@ export default {
         this.tableData = resp.data;
       }).catch(error => {
         alert('获取用户列表失败');
+        console.log(error);
+      });
+    },
+    getEmployeeList(){
+      this.axios({
+        method: 'get',
+        //url: `${this.baseURL}/getuserlist`
+        url: '/emplyservice/employees'
+      }).then(resp => {
+        console.log(resp.data);
+        this.employeeTableData = resp.data;
+      }).catch(error => {
+        alert('获取员工列表失败');
         console.log(error);
       });
     }
