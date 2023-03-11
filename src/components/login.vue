@@ -17,6 +17,9 @@
                     <el-button type="primary" class="button" style="width: 120px; margin-right: 50px">注册</el-button>
                 </router-link>
                 <el-button type="primary" class="button" @click="login" style="width: 120px">登录</el-button>
+                <router-link to="/articles">
+                  <el-button type="primary" class="button" style="width: 120px; margin-right: 50px">到Articles页面</el-button>
+                </router-link>
             </el-form-item>
             </div>
             <div>

@@ -41,6 +41,15 @@ module.exports = {
               /*pathRewrite: {
                   '^/usercenter': ''
               }*/
+          },
+
+          '/articles': {
+              target: 'http://localhost:8087',
+              changeOrigin: true,
+              ws: true
+              /*pathRewrite: {
+                  '^/usercenter': ''
+              }*/
           }
 
           /*'/api': {
