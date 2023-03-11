@@ -85,7 +85,7 @@ export default {
       this.axios({
         method: 'get',
         //url: `${this.baseURL}/getuserlist`
-        url: '/articles'
+        url: '/articles/'
       }).then(resp => {
         console.log(resp.data);
         this.articlesData = resp.data;
@@ -111,7 +111,7 @@ export default {
       this.axios({
         method: 'post',
         //url: `${this.baseURL}/getuserlist`
-        url: '/articles',
+        url: '/articles/',
         data: this.articlesNewData
       }).then(resp => {
         console.log(resp.data);
