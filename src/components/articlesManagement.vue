@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column align="center" prop="body" label="Body" width="500">
         </el-table-column>
-        <el-table-column align="center" prop="published" label="published" width="50">
+        <el-table-column align="center" prop="published" label="published" width="50" :formatter="formatBoolean">
         </el-table-column>
         <el-table-column align="center" prop="createdAt" label="创建于" width="100">
         </el-table-column>
@@ -120,8 +120,17 @@ export default {
         alert('添加Article失败');
         console.log(error);
       });
+    },
+    //格式化published这个Boolean字段的显示
+    formatBoolean: function (row) {
+      var ret = ''
+      if (row.published == true) {
+        ret = "是" //根据自己的需求设定
+      } else {
+        ret = "否"
+      }
+      return ret;
     }
-
 
   }
 
