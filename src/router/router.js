@@ -4,7 +4,7 @@ import Login from '@/components/login';
 import Usermanagement from '@/components/usermanagement';
 import UserHome from '@/components/userhome';
 import Registration from '@/components/registration';
-import Articles from "@/components/articles.vue";
+import ArticlesManagement from "@/components/articlesManagement.vue";
 import Key from '@/components/key';
 
 Vue.use(VueRouter);
@@ -49,9 +49,9 @@ const router = new VueRouter({
             meta: { requiresAuth: true }
         },
         {
-            path: '/articles',
-            name: 'articles',
-            component: Articles,
+            path: '/articlesManagement',
+            name: 'articlesManagement',
+            component: ArticlesManagement,
             meta: { requiresAuth: false }
         }
     ]

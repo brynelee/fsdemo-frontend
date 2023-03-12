@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  name: "Articles",
+  name: "ArticlesManagement",
 
   data() {
     return {
