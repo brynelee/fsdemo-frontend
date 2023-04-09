@@ -50,6 +50,16 @@ module.exports = {
               /*pathRewrite: {
                   '^/usercenter': ''
               }*/
+          },
+
+          /* report to skywalking oap 12800 port */
+          '/browser': {
+              target: 'http://localhost:12800',
+              changeOrigin: true,
+              ws: true
+              /*pathRewrite: {
+                  '^/usercenter': ''
+              }*/
           }
 
           /*'/api': {

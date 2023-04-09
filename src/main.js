@@ -24,9 +24,31 @@ Vue.prototype.baseURL = "http://localhost:8081";
 
 Vue.config.productionTip = false;
 
+//for skywalking configuration
+import ClientMonitor from 'skywalking-client-js';
+
+// Report collected data to `http:// + window.location.host + /browser/perfData` in default
+ClientMonitor.register({
+  //Use core/default/restPort in the OAP server.
+    //collector: 'http://127.0.0.1:12800',
+    service: 'fsdemo-frontend',
+    pagePath: location.href,
+    serviceVersion: 'v1.0.0',
+});
+
+
 
 //添加路由控制
 router.beforeEach((to, from, next) => {
+
+    ClientMonitor.setPerformance({
+        //collector: 'http://127.0.0.1:12800',
+        service: 'fsdemo-frontend',
+        serviceVersion: 'v1.0.0',
+        pagePath: location.href,
+        useFmp: true
+    });
+
   // 检测路由配置中是否有requiresAuth这个meta属性
   if (to.matched.some(record => record.meta.requiresAuth)) {
     console.log("main.js: router check - requiresAuth - true.");
