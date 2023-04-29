@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 #FROM nginx:latest
-FROM nginx:stable-bullseye
+FROM nginx:stable
 RUN apt-get update
 RUN apt-get install bash -y
 RUN apt-get install netcat -y
