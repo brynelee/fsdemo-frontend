@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 #FROM nginx:latest
-FROM nginx:1.17.0
+FROM nginx:1.16.0
 RUN apt-get update
 RUN apt-get install bash -y
 RUN apt-get install netcat -y
